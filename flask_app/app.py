@@ -23,6 +23,7 @@ def home():
         query_date = pd.to_datetime(query_date).date()
 
     essential = find_todays_essential_color(date_in=query_date)
+    date_str = query_date.strftime("%A, %B %d, %Y")
 
     essential_value_str, color_theme = None, None
     if not essential:
@@ -36,7 +37,7 @@ def home():
         color_theme = COLOR_THEME_CONVERTER[essential['color']]
 
     return render_template("index.html", essential_value_str=essential_value_str,
-                           color_theme=color_theme)
+                           color_theme=color_theme, date_str=date_str)
 
 
 # Health check for Render
