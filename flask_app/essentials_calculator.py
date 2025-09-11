@@ -30,8 +30,9 @@ def schedule_for_color(color):
     card_notes = []
     for teacher in calendar_df.to_dict('records'):
         card_notes.append(f"{teacher['teacher']}: {teacher['activity']}")
+    card_notes.sort()
     if color == 'red':
-        card_notes.append("Red Day: Beginning Band")
+        card_notes.append("\nBeginning Band")
     return card_notes
 
 
