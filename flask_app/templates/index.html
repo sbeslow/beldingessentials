@@ -17,10 +17,16 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand text-black">Today's Belding Essential</a>
+            <a class="navbar-brand text-black" href="/">Today's Belding Essential</a>
         </div>
     </nav>
-    <div class=""container"><h6 class="text-center" style="padding-top: 100px;">{{date_str}}</h6></div>
+    <div class="container">
+        <h6 class="text-center" style="padding-top: 100px;">
+            <a href="?date={{date_str}}&nav=prev" class="text-decoration-none me-3">&#8592;</a>
+            {{date_str}}
+            <a href="?date={{date_str}}&nav=next" class="text-decoration-none me-3">&#8594;</a>
+        </h6>
+    </div>
     <div class="container d-flex justify-content-center align-items-start my-5">
     <div class="card text-white {{color_theme}} shadow-lg" style="max-width: 24rem;">
         <div class="card-body">

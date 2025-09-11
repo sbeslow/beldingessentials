@@ -6,6 +6,7 @@ import pandas as pd
 from essentials_calculator import find_todays_essential_color
 
 from pathlib import Path
+from flask import redirect, url_for
 
 app = Flask(__name__)
 DATA_DIR = Path(__file__).parent / "data"
@@ -17,10 +18,18 @@ COLOR_THEME_CONVERTER = dict(red='bg-danger', orange='bg-primary', yellow='bg-wa
 @app.get("/")
 def home():
     query_date = request.args.get("date")
+    nav = request.args.get("nav")
     if not query_date:
         query_date = datetime.now(pytz.timezone('US/Central')).date()
     else:
         query_date = pd.to_datetime(query_date).date()
+
+    if nav:
+        if nav == 'prev':
+            query_date = query_date - pd.Timedelta(days=1)
+        elif nav == 'next':
+            query_date = query_date + pd.Timedelta(days=1)
+        return redirect(url_for('home', date=str(query_date)))
 
     essential = find_todays_essential_color(date_in=query_date)
     date_str = query_date.strftime("%A, %B %d, %Y")
