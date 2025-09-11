@@ -1,7 +1,5 @@
-import pytest
 import pandas as pd
-from essentials_calculator import find_todays_essential_color
-import os
+from essentials_calculator import find_todays_essential_color, schedule_for_color
 
 
 def test_find_essential_today():
@@ -22,6 +20,15 @@ def test_no_school():
 def test_weekend():
     answer = find_todays_essential_color(test_date=pd.to_datetime("2025-11-9").date())
     assert not answer
+
+
+def test_classrooms_by_color():
+
+    activities = schedule_for_color('blue')
+    breakpoint()
+    assert isinstance(activities, list)
+    assert len(activities) > 0
+    assert any("Red Day" in activity for activity in activities)    
 
 """
 def test_get_weekday_count():

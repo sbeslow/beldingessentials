@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 import pandas as pd
 
-from essentials_calculator import find_todays_essential_color
+from essentials_calculator import find_todays_essential_color, schedule_for_color
 
 from pathlib import Path
 from flask import redirect, url_for
@@ -34,7 +34,7 @@ def home():
     essential = find_todays_essential_color(date_in=query_date)
     date_str = query_date.strftime("%A, %B %d, %Y")
 
-    essential_value_str, color_theme = None, None
+    essential_value_str, color_theme, activities_for_day = None, None, []
     if not essential:
         essential_value_str = "Enjoy the weekend!"
         color_theme = 'bg-secondary'
@@ -44,9 +44,10 @@ def home():
     else:
         essential_value_str = f"{essential['color'].title()} ({essential['letter'].upper()})"
         color_theme = COLOR_THEME_CONVERTER[essential['color']]
+        activities_for_day = schedule_for_color(essential['color'])
 
     return render_template("index.html", essential_value_str=essential_value_str,
-                           color_theme=color_theme, date_str=date_str)
+                           color_theme=color_theme, date_str=date_str, activities_for_day=activities_for_day)
 
 
 # Health check for Render
